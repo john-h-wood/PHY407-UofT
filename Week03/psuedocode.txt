@@ -1,0 +1,66 @@
+# ============ PSEUDOCODE ==============================================================================================
+#
+# ------ Generally useful functions ------------------------------------------------------------------------------------
+# Set constants (speed of light c, mass m, spring constant k)
+# Import Gaussian quadrature functions from gaussxw.py
+#
+# Define function to compute integrand (g_k)
+#     Set initial position x_0 and position x
+#     Return integrand according to equations 6 and 7 from lab handbook
+#
+# Define function to sum integrands according to points and weights:
+#     Set points and weights
+#     Set total to 0
+#     For each corresponding point x and weight w:
+#         Add w * integrand(x) to total
+#     Return total
+#
+# Define function to scale points and weights for Gaussian quadrature:
+#     Set points and weights
+#     Scale points and weights according to equations from pg. 1 of lab handbook
+#     Return scaled points and weights
+#
+# ------ Question 2A/B -------------------------------------------------------------------------------------------------
+# Set initial position x_0 as 0.01
+# Compute classical period value
+#
+# Initialize figure for plots
+#
+# For N = 8 and N = 16:
+#     Get points and weights using given subroutine with bounds 0 to x_0
+#     Sum integrands with these points and weights to estimate period
+#
+#     Compute and display error and relative error of estimated period wrt classical period
+
+#     Plot integrands vs. points
+#     Plot weighted integrands vs. points
+
+# Add titles and legends to plot
+# Save plot
+
+# ------ QUESTION 2D ---------------------------------------------------------------------------------------------------
+# Compute points and weights for N=200 and N=400
+# Estimate period using both sets of points and weights
+#
+# Take period estimated using N=400 as actual value
+# Compute and display relative error
+#
+# ------ QUESTION 2E ---------------------------------------------------------------------------------------------------
+# Set quantity of initial times as Q
+# Compute and display x_c according to equation in lab write-up
+# Set first initial position x_0_0 as 1
+# Set last initial position x_0_f as 10 * x_c
+# Set x_0 as range from x_0_0 to x_0_f (non-inclusive) with Q values
+# Initialize estimate, classical, and relativistic period arrays, each with length Q
+#
+# For each integer 0 <= i <= Q:
+#     Scale points and weights for bounds 0 to x_0_i and N=200
+#     Using these, compute and store estimated period
+#     Compute and store classical limit period
+#     Compute and store relativistic limit period
+#
+# Plot estimate, classical and relativistic periods vs. x_0
+# Add titles and legend to plot
+# Save plot
+#
+# ======================================================================================================================
