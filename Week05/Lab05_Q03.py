@@ -7,8 +7,8 @@ This script find the Fourier transform for sea level pressure (SLP) data with th
 implementation). Raw SLP data, and longitudinal wavenumbers 3 and 5 are plotted.
 
 Outputs:
-    - Lab04_Q03_a_wavenumber{i}.png for i in {3, 5}: The SLP, i-th longitudinal wavenumber.
-    - Lab04_Q03_a_raw.png: Raw SLP data
+    - Lab05_Q03_a_wavenumber{i}.png for i in {3, 5}: The SLP, i-th longitudinal wavenumber.
+    - Lab05_Q03_a_raw.png: Raw SLP data
 
 """
 import numpy as np
@@ -66,7 +66,7 @@ def plot_slp_data(slp_data, title_suffix='', filename_suffix=''):
     plt.ylabel('Days since Jan. 1, 2015')
     plt.title('SLP anomaly (hPa)' + title_suffix)
     plt.colorbar()
-    plt.savefig(f'Lab04_Q03_a_{filename_suffix}.png')
+    plt.savefig(f'Lab05_Q03_a_{filename_suffix}.png')
 
 
 transform = np.fft.rfft(slp)
