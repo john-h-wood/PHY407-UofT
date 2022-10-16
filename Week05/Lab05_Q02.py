@@ -157,11 +157,12 @@ for i, channel in enumerate(channels):
     ax1.plot(time_axis[:short_time_idx + 1] * 1e3, channel[: short_time_idx + 1], label='Unfiltered', c='C2')
     ax1.plot(time_axis[:short_time_idx + 1] * 1e3, filtered_channel[: short_time_idx + 1], label='Filtered', c='C3')
 
-    ax0.set_title(f'Channel {i}')
-    ax0.set_xlabel('Time (ms)')
-    ax0.set_ylabel('Amplitude')
+    ax1.set_title(f'Channel {i}')
+    ax1.set_xlabel('Time (ms)')
+    ax1.set_ylabel('Amplitude')
     ax1.legend()
 
+    plt.tight_layout()
     plt.savefig(f'Lab05_Q02_d_channel{i}.png')
     print('Done')
 
