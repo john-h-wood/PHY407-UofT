@@ -71,7 +71,7 @@ import matplotlib.pyplot as plt
 # Plotting parameters
 fig_size = (12, 10)
 dpi = 300
-plt.rcParams.update({'font.size': 12})
+plt.rcParams.update({'font.size': 15})
 
 # Audio
 sample_rate, audio_data = wav.read('GraviteaTime.wav')

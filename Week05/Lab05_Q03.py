@@ -43,7 +43,7 @@ import matplotlib.pyplot as plt
 # Plotting parameters
 fig_size = (12, 8)
 dpi = 300
-plt.rcParams.update({'font.size': 12})
+plt.rcParams.update({'font.size': 15})
 
 # Extract data
 longitude = np.loadtxt('lon.txt') # degrees
