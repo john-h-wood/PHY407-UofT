@@ -31,7 +31,7 @@ import matplotlib.pyplot as plt
 #
 # For each wavenumber in previously defined list:
 #     Create empy arrays of zeros the same shape as the FFT array
-#     Set the (wavenumber - 1)-th column to that column from the FFT array (for each time row, take only certain
+#     Set the (wavenumber)-th column to that column from the FFT array (for each time row, take only certain
 #       column wavenumber)
 #     Compute and plot reverse FFT
 #
@@ -76,7 +76,7 @@ for wavenumber in analyzed_wavenumbers:
 
     # Set required coefficients to zero
     wavenumber_transform = np.zeros(np.shape(transform), complex)
-    wavenumber_transform[:, wavenumber - 1] = transform[:, wavenumber - 1]
+    wavenumber_transform[:, wavenumber] = transform[:, wavenumber]
 
     # Recover wave
     wavenumber_slp = np.fft.irfft(wavenumber_transform)
