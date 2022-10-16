@@ -171,15 +171,3 @@ print('============ QUESTION 2E ================================================
 # Output filtered signal as wav file
 wav.write('GraviteaTime_lpf.wav', sample_rate, filtered_audio_data)
 print('Outputted .wav file')
-
-
-
-
-
-
-
-
-
-
-
-
