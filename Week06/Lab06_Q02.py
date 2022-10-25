@@ -83,6 +83,7 @@ print('============ QUESTION 2A ================================================
 def force(r) -> np.array([float, float]):
     """
     Finds force given some displacement vector (delta x, delta y).
+    Author: David Ribeiro
     """
     return 24 * r * (((r[0] ** 2 + r[1] ** 2) ** (-4)) - (2 * (r[0] ** 2 + r[1] ** 2) ** (-7)))
 
