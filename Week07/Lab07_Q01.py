@@ -262,6 +262,7 @@ plt.plot(adaptive_conditions[:, 0], adaptive_conditions[:, 2], '--', label=f'Ada
 
 plt.xlabel('$x$')
 plt.ylabel('$y$')
+# Note: title is the same as from Newman_8-8.py by Nico Grisouard.
 plt.title('Trajectory of a ball bering around a space rod')
 plt.axis('equal')
 plt.grid()
