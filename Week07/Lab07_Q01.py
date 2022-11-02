@@ -40,9 +40,9 @@ Outputs:
 #
 # Define function for adaptive RK4 algorithm:
 #     Set target error, integration times, initial conditions, equation of motion and starting step size, h
-#     Set empty time list
-#     Set empty step size list
-#     Set empty results list (entries formatted as (x, v_x, y, v_y))
+#     Set time list with starting time
+#     Set step size list with starting step size
+#     Set results list (entries formatted as (x, v_x, y, v_y)) with initial conditions
 #     Set time as integration start time
 #     Initialize conditions array as initial conditions
 #
@@ -54,6 +54,9 @@ Outputs:
 #         Calculate rho according to equation 4 from lab handout
 #
 #         If rho >= 1:
+#             Add 2 * [current step size] to time
+#             Append time to time list
+#
 #             If rho > 1:
 #                 Calculate increased step size according to Eq. 8.52 from Computational Physics
 #                 If increased step size is not greater than 2 * [current step size]:
@@ -61,21 +64,20 @@ Outputs:
 #                 Otherwise:
 #                     Set 2 * [current step size] as step size
 #
-#             Add 2 * [current step size] to time
 #             Set conditions as those from two h steps
 #             Append conditions to results list
-#             Append time to time list
 #             Append current step size to step size list
 #
 #         Otherwise (if rho < 1):
+#             Add step size to time
+#             Append time to time list
+#
 #             Calculate smaller step size according to Eq. 8.52 from Computational Physics
 #             Set current step size as this smaller step size
 #             Calculate step of RK4 method with previously defined function
 #
-#             Add step size to time
 #             Set conditions as those RK4 step
 #             Append conditions to results list
-#             Append time to time list
 #             Append current step size to step size list
 #
 # Define function for non-adaptive RK4 algorithm
@@ -144,7 +146,7 @@ def seperated_equations(conditions):
 
 def rk4_step(step_quantity, step_size, starting_conditions, function):
     """
-    See pseudo-code (lines 28-32). Adapted from Newman_8-8.py by Nico Grisouard.
+    See pseudo-code (lines 28-39). Adapted from Newman_8-8.py by Nico Grisouard.
     """
     k1 = step_size * function(starting_conditions)  # all the k's are vectors
     k2 = step_size * function(starting_conditions + 0.5 * k1)  # note: no explicit dependence on time of the RHSs
@@ -163,13 +165,13 @@ def rk4_step(step_quantity, step_size, starting_conditions, function):
 
 def adaptive_rk4(t_0, t_final, step_size, initial_conditions, target_error, function):
     """
-    See pseudo-code (lines 41-79).
+    See pseudo-code (lines 41-81).
     """
     conditions = initial_conditions
     t = t_0
-    time = list()
-    results = list()
-    step_sizes = list()
+    time = [t_0]
+    results = [conditions]
+    step_sizes = [step_size]
 
     while t < t_final:
         # Do two steps of step_size and one of 2 * step_size, find the error in each, then compute rho
@@ -180,6 +182,8 @@ def adaptive_rk4(t_0, t_final, step_size, initial_conditions, target_error, func
         rho = (step_size * target_error) / sqrt(error_x ** 2 + error_y ** 2)
 
         if rho >= 1:  # Desired accuracy achieved. Append results.
+            t += 2 * step_size
+            time.append(t)
 
             if rho > 1:  # Step size can be increased
                 # Compute new step size. If it meets the condition to avoid divergence, set it as the step size
@@ -192,30 +196,28 @@ def adaptive_rk4(t_0, t_final, step_size, initial_conditions, target_error, func
                 else:
                     step_size = new_step_size
 
-            t += 2 * step_size
             conditions = two_steps
 
-            time.append(t)
             results.append(two_steps)
             step_sizes.append(step_size)
 
             continue
 
         elif rho < 1:  # Desired accuracy not achieved. Do step with required step_size
+            t += step_size
+            time.append(t)
+
             new_step_size = step_size * (rho ** 0.25)
             step_size = new_step_size
             new_conditions = rk4_step(1, step_size, conditions, function)
 
-            t += step_size
             conditions = new_conditions
-
-            time.append(t)
             results.append(new_conditions)
             step_sizes.append(step_size)
 
             continue
 
-    return np.array(time), np.array(results), np.array(step_sizes)
+    return np.array(time[:-1]), np.array(results[:-1]), np.array(step_sizes[:-1])
 
 
 # ============ NON-ADAPTIVE RK4 ========================================================================================
@@ -224,7 +226,7 @@ def adaptive_rk4(t_0, t_final, step_size, initial_conditions, target_error, func
 # the format (x, v_x, y, v_y) for each time step.
 def non_adaptive_rk4(t_0, t_final, step_size, initial_conditions, function):
     """
-    See pseudo-code (lines 81-85). Adapted from Newman_8-8.py by Nico Grisouard.
+    See pseudo-code (lines 83-87). Adapted from Newman_8-8.py by Nico Grisouard.
     """
     time = np.arange(t_0, t_final, step_size)
     conditions = initial_conditions
@@ -247,10 +249,6 @@ adaptive_start = perf_counter()
 adaptive_time, adaptive_conditions, step_sizes = adaptive_rk4(t_0, t_final, 0.01, initial_conditions, delta,
                                                               seperated_equations)
 adaptive_end = perf_counter()
-
-
-print(len(adaptive_time))
-print(len(non_adaptive_time))
 
 # ============ QUESTION 1A =============================================================================================
 print('============ QUESTION 1A ======================================================================================')
