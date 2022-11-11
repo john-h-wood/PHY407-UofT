@@ -24,9 +24,9 @@ import matplotlib.pyplot as plt
 print('============ SETUP ============================================================================================')
 
 # Plotting preferences
-fig_size = (9, 7)
+fig_size = (6.4, 4.8)
 dpi = 300
-plt.rcParams.update({'font.size': 15})
+plt.rcParams.update({'font.size': 13})
 plotting_times = (0, 1, 4) # s
 
 # Problem constants
