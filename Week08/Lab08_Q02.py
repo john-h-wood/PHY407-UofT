@@ -1,19 +1,42 @@
 """
-PHY 407: Computational Physics, Lab 07, Question 01
+PHY 407: Computational Physics, Lab 08, Question 02
 Author: John Wood
-Date: November 1, 2022
+Date: November 14, 2022
 
-Plots the trajectory of a ball bering orbiting a rod, as calculated by an adaptive and non-adaptive RK4 algorithm (
-wrt step size). Each algorithm is times. For the adaptive algorithm, step size is plotted over time, and also with
-velocity.
+Uses the FTCS algorithm to solve the 1D shallow water equations. "A small Gaussian peak" (lab handout) is the initial
+conditions. Plots for t=0, 1, and 4 seconds are saved.
 
 Outputs:
-    - LAB07_Q01_a.png: Trajectories according to adaptive and non-adaptive RK4 algorithms
-    - Printed: time taken for each algorithm
-    - LAB07_Q01_c.png: Step size over time
-    - LAB07_Q01_c2.png: Step size and velocity over time
+    - Lab08_Q02_b_0s.png: Wave at t=0s
+    - Lab08_Q02_b_1s.png: Wave at t=1s
+    - Lab08_Q02_b_4s.png: Wave at t=4s
 
 """
+
+# ============ PSEUDOCODE ==============================================================================================
+# Define plotting preferences
+# Define problem constants and initial conditions
+#   Use scipy's error function to calculate value of mean in Eq. 8 of handout
+#   With above, define function that calculates eta_b at t=0s for a given x-axis
+#
+# ------------ QUESTION 2B ---------------------------------------------------------------------------------------------
+# Define empty results array with dimensions ([u/eta], position steps, time steps)
+# Set initial conditions in results array
+#
+# Define function to implement Eq. 7 from handout (equation for F):
+#   Set position and time index
+#   Get u and eta at above indices
+#   Calculate and return F(u, eta)
+#
+# For each time step in results array, except the last:
+#   For each position step in results array, including the last:
+#       Find (u, eta) at the current position and *next* time step:
+#           If position == 0 or is the last position ( == J), use Eq. 9 from handout
+#           Otherwise, use Eq. 1 and 2 from submitted lab document (ie the document that we wrote, not the handout)
+#
+# Plot eta over x, H and eta_b at t=0, 1, and 4s.
+#
+# ======================================================================================================================
 
 import numpy as np
 import scipy.special as sps
