@@ -120,7 +120,6 @@ for time in plotting_times:
     time_index = int((time - t_0) / dt)
 
     plt.figure(figsize=fig_size, dpi=dpi)
-    plt.hlines(eta_b, x_0, x_final, colors='black', label=r'$\eta_b$')
     plt.hlines(H, x_0, x_final, colors='grey', linestyles='dashed', label=r'$H$')
     plt.plot(x_axis, results[1, :, time_index], label=r'$\eta$', lw=2.5)
 
