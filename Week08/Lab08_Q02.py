@@ -94,6 +94,9 @@ results[0, :, 0] = 0.
 results[1, :, 0] = eta_t_0(x_axis)
 
 def F(position, time):
+    """
+    Gives F as defined by Eq. 7 in lab handout for a given position and time index.
+    """
     u = results[0, position, time]
     eta = results[1, position, time]
     return np.array((0.5 * (u ** 2) + (g * eta), (eta - eta_b) * u))
