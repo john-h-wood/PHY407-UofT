@@ -123,7 +123,7 @@ for time in plotting_times:
     plt.hlines(H, x_0, x_final, colors='grey', linestyles='dashed', label=r'$H$')
     plt.plot(x_axis, results[1, :, time_index], label=r'$\eta$', lw=2.5)
 
-    plt.legend(loc='center right')
+    plt.legend()
     plt.xlabel(r'$x$ (m)')
     plt.ylabel(r'$z$ (m)')
     plt.title(rf'$\eta$ at $t$={time} s')
