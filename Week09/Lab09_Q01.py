@@ -175,8 +175,8 @@ for frac in plotting_fracs:
 expected_position = np.empty(time_steps, float)
 for t in range(time_steps):
     phi_t = phi[t, :]
-    integrands = np.conj(phi_t) * (space_axis * phi_t)
-    expected_position[t] = np.real(simpson(integrands, space_axis))
+    integrands = space_axis * np.abs(phi_t) ** 2
+    expected_position[t] = simpson(integrands, space_axis)
 
 print()
 print('Calculated expectation value of position.')
@@ -238,8 +238,8 @@ for t in range(time_steps):
         print(f'Calculating energy at time step {t + 1} of {time_steps}')
     phi_t = phi[t, :]
     operated_phi_t = np.pad(np.matmul(H_D, phi_t[1:-1]), (1,), 'constant')
-    integrands = np.conj(phi_t) * operated_phi_t
-    energy[t] = np.real(simpson(integrands, space_axis))
+    integrands = np.real(np.conj(phi_t) * operated_phi_t)
+    energy[t] = simpson(integrands, space_axis)
 
 print('Energy calculated.')
 print()
