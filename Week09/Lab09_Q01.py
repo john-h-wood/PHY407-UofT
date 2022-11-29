@@ -1,12 +1,28 @@
 """
 PHY 407: Computational Physics, Lab 09, Question 01
 Author: John Wood
-Date: November 23, 2022
+Date: November 28, 2022
 
-TODO
+In this script, we use the Crank-Nicholson algorithm to solve for the wavefunction of an electron in an infinite
+square well over time. Initial conditions are set, the psi is found over a set number of time steps, each separated
+by dt seconds. The real part of psi is plotted at some defined times. The expectation value of position is found and
+plotted against time. The normalization of psi is found and plotted over time. Energy is found over time. Both of
+these quantities should be conserved, and statistics to check this are printed.
 
 Outputs:
-    - TODO
+    - Lab09_Q01_b_9.png: psi at 0*T where T is the final time
+    - Lab09_Q01_b_0.25.png
+    - Lab09_Q01_b_0.5.png
+    - Lab09_Q01_b_0.75.png
+    - Lab09_Q01_b_1.png
+    - Lab09_Q01_b_trajectory.png: Expectation value of position over time
+
+    - Lab09_Q01_c_norm.png: Normalization of psi over time
+    - Lab09_Q01_c_energy.png: Energy of psi over time
+
+    - Printed: progress updates
+    - Printed: Greatest absolute error of normalization
+    - Printed: Range, std, and mean of energy
 
 """
 
@@ -21,9 +37,32 @@ Outputs:
 #
 # ------------ Question 1A ---------------------------------------------------------------------------------------------
 # From problem constants, calculate the discretized Hamiltonian
-# Use the Crank-Nicholson algorithm to step phi forward in time, saving results
+# Use the Crank-Nicholson algorithm to step phi forward in time, saving results:
+#   For each time step but the last:
+#       Find psi at next time step (only non-boundary points) using matrix multiplication from lab handout and LU
+#       decomposition
 #
+# ------------ Question 1B ---------------------------------------------------------------------------------------------
+# For each required psi plotting time:
+#   Plot the real part of psi at that time
 #
+# Define empty array for expectation value of position over time with length [time steps]
+# For each time step: populate array using Equation 4 from lab handout. Take only real part of integral result
+# Plot expectation value of position over time
+#
+# ------------ Question 1C ---------------------------------------------------------------------------------------------
+# Create empty `normalization over time' array with length [time steps]
+# For each time step: populate array using Equation 3 from lab handout (except the left hand side might not be 1).
+#   Take only real part of integral result
+# Print greatest difference of normalization from 1
+# Plot normalization over time
+#
+# Create empty array for energy over time with length [time steps]
+# For each time step:
+#   Populate array using Equation 4 from lab handout and Hamiltonian from Question 1A
+#   Note: H_D only works for non-boundary points. Operated psi's must be padded on both sides with a zero.
+# Print energy range, STD and mean
+# Plot energy over time
 #
 # ======================================================================================================================
 
@@ -174,7 +213,7 @@ for t in range(time_steps):
     normalization[t] = simpson(integrands, space_axis)
 
 plt.figure(figsize=fig_size, dpi=dpi)
-plt.plot(time_axis, normalization, label='Probability')
+plt.plot(time_axis, normalization, label='Probability', c='red')
 plt.axhline(1, c='black', ls='--', label='Expected')
 
 plt.title(r'$P_{-\infty<x<\infty}$ over time')
@@ -204,6 +243,19 @@ for t in range(time_steps):
 
 print('Energy calculated.')
 print()
+
+plt.figure(figsize=fig_size, dpi=dpi)
+plt.plot(time_axis, energy, c='green')
+
+plt.title('Energy over time')
+plt.xlabel('Time (s)')
+plt.ylabel(r'$E$ (J)')
+plt.grid()
+
+plt.tight_layout()
+plt.savefig('Lab09_Q01_c_energy.png')
+plt.close()
+
 e_range = np.amax(energy) - np.amin(energy)
 print(f'Range: {np.format_float_scientific(e_range, 3)} J')
 print(f'STD (ddof=1): {np.format_float_scientific(np.std(energy, ddof=1), 3)} J')
