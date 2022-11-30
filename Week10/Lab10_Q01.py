@@ -90,6 +90,10 @@ UP, DOWN, LEFT, RIGHT = range(4)
 
 # Functions used for both sub questions
 def apply_move(move_code, x, y):
+    """
+    Applies a move to a given position. The move is specified by its move code:
+    UP, DOWN, LEFT, RIGHT = (0, 1, 2, 3)
+    """
     if move_code == UP:
         return x, y + 1
     elif move_code == DOWN:
@@ -178,6 +182,9 @@ centre_coordinate = (grid_dim - 1) // 2
 
 
 def stick(x, y):
+    """Determines whether a particle at the given position is beside a boundary or an anchored particle.
+    Returns this as a boolean. If the particle beside a boundary or anchored particle, it is marked as anchored in
+    the anchored array."""
     if x == 1 or x == grid_dim - 2 or y == 1 or y == grid_dim - 2:
         # Position is on boundary
         anchored[x, y] = 1
