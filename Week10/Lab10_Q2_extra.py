@@ -12,6 +12,7 @@ from math import factorial
 from scipy.special import gamma
 import matplotlib.pyplot as plt
 
+plt.rcParams.update({'font.size': 13})
 dimensions = range(1, 101)
 radius = 1
 
