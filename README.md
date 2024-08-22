@@ -1,3 +1,6 @@
+# Note from John
+Plase note that this is a clone of a repo used for the PHY407 course. In this course I worked with lab partners, whose work may be included here. My work also takes inspiration from theirs (refactoring at least once, as I saw in the commit logs). I include this note out of an abundace of caution.
+
 # Instructions to use this repository with syzygy
 
 ## If first cloning into syzygy:
